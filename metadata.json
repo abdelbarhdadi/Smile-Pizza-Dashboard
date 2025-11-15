@@ -1,0 +1,5 @@
+{
+  "name": "Pizzeria Management Dashboard",
+  "description": "A comprehensive application for managing a pizzeria, including product recipes, ingredient stock, sales tracking, and a detailed analytics dashboard.",
+  "requestFramePermissions": []
+}
