@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { usePizzeria } from '../context/PizzeriaContext';
 import { formatDate } from '../utils/helpers';
@@ -64,17 +65,17 @@ const IngredientModal: React.FC<{
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
             <div className="bg-gray-800 p-8 rounded-lg shadow-2xl w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-white">{ingredient ? 'Modifier' : 'Ajouter'} un Ingrédient</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input type="text" placeholder="Nom" value={name} onChange={e => setName(e.target.value)} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2"/>
-                    <select value={unit} onChange={e => setUnit(e.target.value as Unit)} className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2">
+                    <input type="text" placeholder="Nom" value={name} onChange={e => setName(e.target.value)} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base"/>
+                    <select value={unit} onChange={e => setUnit(e.target.value as Unit)} className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base">
                         {UNITS.map(u => <option key={u} value={u}>{u}</option>)}
                     </select>
-                    <input type="number" placeholder="Stock Initial" value={stock} onChange={e => setStock(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2"/>
-                    <input type="number" step="0.001" placeholder="Prix d'achat (DH)" value={purchasePrice} onChange={e => setPurchasePrice(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2"/>
-                    <input type="date" value={supplyDate} onChange={e => setSupplyDate(e.target.value)} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2"/>
+                    <input type="number" placeholder="Stock Initial" value={stock} onChange={e => setStock(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base"/>
+                    <input type="number" step="0.001" placeholder="Prix d'achat (DH)" value={purchasePrice} onChange={e => setPurchasePrice(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base"/>
+                    <input type="date" value={supplyDate} onChange={e => setSupplyDate(e.target.value)} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base"/>
                     <div className="flex justify-end space-x-4 pt-4">
                         <button type="button" onClick={onClose} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Annuler</button>
                         <button type="submit" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Enregistrer</button>
@@ -111,13 +112,13 @@ const RestockModal: React.FC<{
     if (!isOpen || !ingredient) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
             <div className="bg-gray-800 p-8 rounded-lg shadow-2xl w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-2 text-white">Réapprovisionner</h2>
                 <p className="text-lg text-gray-400 mb-6">{ingredient.name}</p>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input type="number" min="0" placeholder="Quantité ajoutée" value={quantity} onChange={e => setQuantity(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2"/>
-                    <input type="number" step="0.001" min="0" placeholder="Nouveau prix d'achat (DH)" value={price} onChange={e => setPrice(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2"/>
+                    <input type="number" min="0" placeholder="Quantité ajoutée" value={quantity} onChange={e => setQuantity(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base"/>
+                    <input type="number" step="0.001" min="0" placeholder="Nouveau prix d'achat (DH)" value={price} onChange={e => setPrice(parseFloat(e.target.value))} required className="w-full bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base"/>
                     <div className="flex justify-end space-x-4 pt-4">
                         <button type="button" onClick={onClose} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Annuler</button>
                         <button type="submit" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Ajouter au Stock</button>
@@ -208,7 +209,7 @@ export const Ingredients: React.FC = () => {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-4xl font-bold text-white">Ingrédients & Stock</h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-white">Ingrédients & Stock</h1>
                 <button onClick={() => handleOpenModal()} className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors">
                     Ajouter un Ingrédient
                 </button>
@@ -218,14 +219,14 @@ export const Ingredients: React.FC = () => {
                 <table className="w-full text-left">
                     <thead className="bg-gray-700">
                         <tr>
-                            <th className="p-4 font-semibold">Nom</th>
+                            <th className="p-4 font-semibold min-w-[150px]">Nom</th>
                             <th className="p-4 font-semibold">Unité</th>
                             <th className="p-4 font-semibold">Stock Initial</th>
                             <th className="p-4 font-semibold">Achats</th>
                             <th className="p-4 font-semibold">Consommé</th>
                             <th className="p-4 font-semibold">Stock Actuel</th>
                             <th className="p-4 font-semibold">Prix d'Achat (DH)</th>
-                            <th className="p-4 font-semibold">Dernier Approv.</th>
+                            <th className="p-4 font-semibold min-w-[120px]">Dernier Approv.</th>
                             <th className="p-4 font-semibold">Actions</th>
                         </tr>
                     </thead>
@@ -240,7 +241,7 @@ export const Ingredients: React.FC = () => {
                                         type="number"
                                         step="0.01"
                                         min="0"
-                                        className="w-24 bg-gray-900 border border-gray-600 rounded-md text-green-400 p-1 text-right focus:outline-none focus:ring-2 focus:ring-green-500 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
+                                        className="w-24 bg-gray-900 border border-gray-600 rounded-md text-green-400 p-1 text-right text-base focus:outline-none focus:ring-2 focus:ring-green-500 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                                         value={purchaseInputs[ing.id] ?? (ing as any).purchases.toFixed(2)}
                                         onChange={(e) => handlePurchaseInputChange(ing.id, e.target.value)}
                                         onBlur={() => handlePurchaseInputBlur(ing.id)}

@@ -99,22 +99,33 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, navigateTo }) => 
 
   return (
     <>
-      <div className="md:hidden p-4 fixed top-0 left-0 z-20">
-        <button onClick={() => setIsOpen(!isOpen)} className="text-white bg-gray-800 p-2 rounded-md">
-            <Bars3Icon className="w-6 h-6" />
+      {/* Mobile Header Bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-20 bg-gray-800 border-b border-gray-700 h-16 flex items-center px-4 shadow-md">
+        <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-white focus:outline-none p-1">
+            <Bars3Icon className="w-8 h-8" />
         </button>
+        <div className="ml-4 font-bold text-xl text-white flex items-center">
+            <img src={LOGO_URL} alt="Logo" className="h-8 w-auto mr-2" />
+            <span>Pizzeria Manager</span>
+        </div>
       </div>
 
-      {/* Mobile Sidebar */}
-      <div className={`fixed inset-0 z-10 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:hidden`}>
-         <div className="w-64 bg-gray-800 h-full shadow-2xl">
+      {/* Mobile Sidebar Overlay */}
+      <div className={`fixed inset-0 z-30 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:hidden`}>
+         <div className="relative w-64 bg-gray-800 h-full shadow-2xl flex flex-col">
+             {/* Close button inside sidebar */}
+            <button onClick={() => setIsOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
             {sidebarContent}
          </div>
-         <div className="fixed inset-0 bg-black opacity-50" onClick={() => setIsOpen(false)}></div>
+         <div className="fixed inset-0 bg-black opacity-50 -z-10" onClick={() => setIsOpen(false)}></div>
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:block w-64 bg-gray-800 flex-shrink-0 shadow-2xl">
+      <aside className="hidden md:flex md:flex-col w-64 bg-gray-800 flex-shrink-0 shadow-2xl border-r border-gray-700">
         {sidebarContent}
       </aside>
     </>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { usePizzeria } from '../context/PizzeriaContext';
 import { calculateMaterialCost, formatCurrency } from '../utils/helpers';
@@ -68,20 +69,20 @@ export const ProductForm: React.FC<ProductFormProps> = ({ productId, onFormSubmi
     
     return (
         <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl font-bold text-white mb-8">{productId ? 'Modifier le Produit' : 'Créer un Produit'}</h1>
-            <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-lg shadow-xl space-y-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">{productId ? 'Modifier le Produit' : 'Créer un Produit'}</h1>
+            <form onSubmit={handleSubmit} className="bg-gray-800 p-4 md:p-8 rounded-lg shadow-xl space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-300">Nom du produit</label>
-                        <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} required className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500"/>
+                        <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} required className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500 p-2 text-base"/>
                     </div>
                     <div>
                         <label htmlFor="salePrice" className="block text-sm font-medium text-gray-300">Prix de vente (DH)</label>
-                        <input type="number" step="0.01" id="salePrice" value={salePrice} onChange={e => setSalePrice(parseFloat(e.target.value))} required className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500"/>
+                        <input type="number" step="0.01" id="salePrice" value={salePrice} onChange={e => setSalePrice(parseFloat(e.target.value))} required className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500 p-2 text-base"/>
                     </div>
                     <div>
                         <label htmlFor="category" className="block text-sm font-medium text-gray-300">Catégorie</label>
-                        <select id="category" value={category} onChange={e => setCategory(e.target.value as Category)} className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500">
+                        <select id="category" value={category} onChange={e => setCategory(e.target.value as Category)} className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500 p-2 text-base">
                             {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                         </select>
                     </div>
@@ -96,17 +97,29 @@ export const ProductForm: React.FC<ProductFormProps> = ({ productId, onFormSubmi
                         if (ingredient?.unit === Unit.L) quantityUnit = Unit.ML;
 
                         return (
-                            <div key={index} className="flex items-center space-x-4 mb-4">
-                                <select value={pi.ingredientId} onChange={e => handleIngredientChange(index, 'ingredientId', e.target.value)} className="flex-1 bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500">
+                            <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4 bg-gray-700/50 p-3 rounded-lg sm:bg-transparent sm:p-0 border border-gray-700 sm:border-none">
+                                <select 
+                                    value={pi.ingredientId} 
+                                    onChange={e => handleIngredientChange(index, 'ingredientId', e.target.value)} 
+                                    className="w-full sm:flex-1 bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500 p-2 text-base"
+                                >
                                     {ingredients.map(ing => <option key={ing.id} value={ing.id}>{ing.name}</option>)}
                                 </select>
-                                <input type="number" placeholder="Quantité" value={pi.quantity} onChange={e => handleIngredientChange(index, 'quantity', parseFloat(e.target.value) || 0)} className="w-32 bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500"/>
-                                <span className="text-gray-400 w-16 text-sm">{quantityUnit}</span>
-                                <button type="button" onClick={() => removeIngredientField(index)} className="p-2 text-red-500 hover:text-red-400"><TrashIcon className="w-5 h-5"/></button>
+                                <div className="flex items-center gap-2 w-full sm:w-auto">
+                                    <input 
+                                        type="number" 
+                                        placeholder="Qté" 
+                                        value={pi.quantity} 
+                                        onChange={e => handleIngredientChange(index, 'quantity', parseFloat(e.target.value) || 0)} 
+                                        className="flex-1 sm:w-32 bg-gray-700 border-gray-600 rounded-md shadow-sm text-white focus:ring-green-500 focus:border-green-500 p-2 text-base"
+                                    />
+                                    <span className="text-gray-400 w-12 text-sm text-center">{quantityUnit}</span>
+                                    <button type="button" onClick={() => removeIngredientField(index)} className="p-2 text-red-500 hover:text-red-400 bg-gray-800 rounded sm:bg-transparent"><TrashIcon className="w-5 h-5"/></button>
+                                </div>
                             </div>
                         );
                     })}
-                    <button type="button" onClick={addIngredientField} className="mt-2 text-green-400 hover:text-green-300 font-semibold">
+                    <button type="button" onClick={addIngredientField} className="mt-2 w-full sm:w-auto text-green-400 hover:text-green-300 font-semibold p-2 border border-green-400 rounded border-dashed hover:border-solid">
                         + Ajouter un ingrédient
                     </button>
                 </div>
@@ -115,11 +128,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ productId, onFormSubmi
                     <p className="text-lg text-gray-300">Coût matière calculé : <span className="font-bold text-yellow-400">{formatCurrency(materialCost)}</span></p>
                 </div>
 
-                <div className="flex justify-end pt-6 border-t border-gray-700">
-                    <button type="button" onClick={onFormSubmit} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg mr-4 transition-colors">
+                <div className="flex flex-col-reverse sm:flex-row justify-end pt-6 border-t border-gray-700 gap-3">
+                    <button type="button" onClick={onFormSubmit} className="w-full sm:w-auto bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                         Annuler
                     </button>
-                    <button type="submit" className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors">
+                    <button type="submit" className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-colors">
                         {productId ? 'Mettre à jour' : 'Enregistrer le produit'}
                     </button>
                 </div>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { usePizzeria } from '../context/PizzeriaContext';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
@@ -31,24 +32,24 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-4xl font-bold text-white">Dashboard</h1>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 bg-gray-800 p-2 rounded-lg">
-              <div className="flex items-center gap-2">
-                  <label htmlFor="startDate" className="text-sm text-gray-400">Du</label>
-                  <input type="date" id="startDate" value={dateRange.startDate || ''} onChange={e => setDateRange({...dateRange, startDate: e.target.value})} className="bg-gray-700 border-gray-600 rounded-md text-white p-1 text-sm"/>
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-8 gap-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-white">Dashboard</h1>
+          <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 bg-gray-800 p-3 rounded-lg w-full xl:w-auto">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <label htmlFor="startDate" className="text-sm text-gray-400 min-w-[20px]">Du</label>
+                  <input type="date" id="startDate" value={dateRange.startDate || ''} onChange={e => setDateRange({...dateRange, startDate: e.target.value})} className="bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base flex-1 sm:flex-none"/>
               </div>
-              <div className="flex items-center gap-2">
-                  <label htmlFor="endDate" className="text-sm text-gray-400">Au</label>
-                  <input type="date" id="endDate" value={dateRange.endDate || ''} min={dateRange.startDate || ''} onChange={e => setDateRange({...dateRange, endDate: e.target.value})} className="bg-gray-700 border-gray-600 rounded-md text-white p-1 text-sm"/>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <label htmlFor="endDate" className="text-sm text-gray-400 min-w-[20px]">Au</label>
+                  <input type="date" id="endDate" value={dateRange.endDate || ''} min={dateRange.startDate || ''} onChange={e => setDateRange({...dateRange, endDate: e.target.value})} className="bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base flex-1 sm:flex-none"/>
               </div>
-               <button onClick={() => setDateRange({ startDate: null, endDate: null })} className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-1 px-3 rounded text-sm transition-colors">
+               <button onClick={() => setDateRange({ startDate: null, endDate: null })} className="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-3 rounded text-sm transition-colors w-full sm:w-auto">
                   Reset
                </button>
               <div className="border-l border-gray-600 h-6 mx-2 hidden sm:block"></div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
                   <label htmlFor="currency" className="text-sm text-gray-400">Devise</label>
-                  <select id="currency" value={currency} onChange={e => setCurrency(e.target.value as Currency)} className="bg-gray-700 border-gray-600 rounded-md text-white p-1 text-sm focus:ring-green-500 focus:border-green-500">
+                  <select id="currency" value={currency} onChange={e => setCurrency(e.target.value as Currency)} className="bg-gray-700 border-gray-600 rounded-md text-white p-2 text-base focus:ring-green-500 focus:border-green-500 flex-1 sm:flex-none">
                       <option value="MAD">MAD</option>
                       <option value="EUR">EUR</option>
                       <option value="USD">USD</option>

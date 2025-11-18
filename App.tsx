@@ -53,9 +53,9 @@ const App: React.FC = () => {
 
   return (
     <PizzeriaProvider>
-      <div className="flex h-screen bg-gray-900 text-gray-100 font-sans">
+      <div className="flex h-[100dvh] bg-gray-900 text-gray-100 font-sans overflow-hidden">
         <Sidebar currentPage={currentPage} navigateTo={navigateTo} />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto p-4 pt-20 sm:p-6 md:pt-6 lg:p-8">
           {renderPage()}
         </main>
       </div>
